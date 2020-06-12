@@ -6,10 +6,10 @@ from influxdb import client as influxdb
 
 sensor_location = 'bedroom'
 interval = 60 # Sample period in seconds
-influx_host = '192.168.0.0'
+influx_host = '192.168.1.13'
 influx_port = '8086'
 user = 'root'
-password = 'rootPassword'
+password = 'root'
 dbname = 'bme280'
 log_measurement = 'bme_stats'
 
@@ -27,15 +27,12 @@ def getStats():
         humidity = bme280_data.humidity
         pressure = bme280_data.pressure
         ambient_temp = bme280_data.temperature
-        #print("Temperature:", ambient_temp, "Humidity:", humidity, "Pressure:", pressure)
-        current_time = time.ctime()
         data = [
             {
             "measurement": log_measurement,
                 "tags": {
                     "location": sensor_location,
                 },
-                "time": current_time,
                 "fields": {
                     "temperature" : ambient_temp,
                     "humidity" : humidity,
@@ -45,7 +42,6 @@ def getStats():
         ]
         #print('bme280 log metrics: %s' % data)
         client.write_points(data)
-
         count = count + 1
         print("Logs created this session: ", count )
         time.sleep(interval)
@@ -60,6 +56,7 @@ def main():
     '\n -e user                      :: %s' % user +
     '\n -e dbname                    :: %s' % dbname +
     '\n -e log_measurement           :: %s' % log_measurement +
+    '\n -e sensor_location           :: %s' % sensor_location +
     '\n -e address                   :: %s' % address 
     )
     getStats()
