@@ -6,10 +6,10 @@ from influxdb import client as influxdb
 
 sensor_location = 'bedroom'
 interval = 60 # Sample period in seconds
-influx_host = '192.168.1.13'
+influx_host = '192.168.1.0'
 influx_port = '8086'
 user = 'root'
-password = 'root'
+password = 'rootPassword'
 dbname = 'bme280'
 log_measurement = 'bme_stats'
 
