@@ -1,0 +1,3 @@
+
+#Run bme2influx.py at startup with 30 second delay. Log output to the same directory of script
+@reboot sleep 30 && python /home/pi/Documents/scripts/bme2influx.py & >>/home/pi/scripts/bme2influx.log 2>&1
